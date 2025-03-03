@@ -1,36 +1,42 @@
-import React from 'react'
-import classes from './Home.module.css'
-import NewTasks from '../New Tasks/NewTasks'
-import PreviewTasks from '../Preview Tasks/PreviewTasks'
-
+import React from "react";
+import classes from "./Home.module.css";
+import NewTasks from "../New Tasks/NewTasks";
+import PreviewTasks from "../Preview Tasks/PreviewTasks";
+import showHelloToast from "../../utils/ShowToast";
+import hapticsImpactMedium from "../../utils/Haptics";
+import CameraComponent from "../Camera/index";
 const Home = () => {
-  const [tasks, setTasks] = React.useState(JSON.parse(localStorage.getItem("TODO")) || []);
+  const [tasks, setTasks] = React.useState(
+    JSON.parse(localStorage.getItem("TODO")) || []
+  );
 
   React.useEffect(() => {
     localStorage.setItem("TODO", JSON.stringify(tasks));
   }, [tasks]);
 
-
   function updateTasks(updatedTasks) {
     setTasks(updatedTasks);
   }
 
-  function saveHandler(todoTitle) {
+  async function saveHandler(todoTitle) {
     const newTodo = {
-      id: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString(),
+      id:
+        new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString(),
       title: todoTitle,
       completed: false,
-    }
+    };
     updateTasks([newTodo, ...tasks]);
+    await showHelloToast("Created Task");
   }
 
-  function onDeleteHandler(id) {
-    const update = tasks.filter(item => item.id !== id);
+  async function onDeleteHandler(id) {
+    const update = tasks.filter((item) => item.id !== id);
     updateTasks(update);
+    await hapticsImpactMedium();
   }
 
   function updateTitle(updatedId, updatedTitle) {
-    const update = tasks.map(item => {
+    const update = tasks.map((item) => {
       if (item.id === updatedId) {
         item.title = updatedTitle;
       }
@@ -40,7 +46,7 @@ const Home = () => {
   }
 
   function updateStatus(updatedId, status) {
-    const update = tasks.map(item => {
+    const update = tasks.map((item) => {
       if (item.id === updatedId) {
         item.completed = status;
       }
@@ -60,10 +66,16 @@ const Home = () => {
           <h1>Today's Tasks</h1>
           <h3>{new Date().toLocaleDateString()}</h3>
         </div>
-        <PreviewTasks loadTasks={tasks} titleHandler={updateTitle} onDelete={onDeleteHandler} statusHandler={updateStatus} />
+        <CameraComponent />
+        <PreviewTasks
+          loadTasks={tasks}
+          titleHandler={updateTitle}
+          onDelete={onDeleteHandler}
+          statusHandler={updateStatus}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;

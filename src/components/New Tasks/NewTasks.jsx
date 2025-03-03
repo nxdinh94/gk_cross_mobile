@@ -11,7 +11,7 @@ const NewTasks = (props) => {
         setTodo(event.target.value);
     }
 
-    const createTodo = (event) => {
+    const createTodo = async (event) => {
         event.preventDefault();
 
         if (todo.trim().length < 3) {
@@ -19,7 +19,7 @@ const NewTasks = (props) => {
             return;
         }
 
-        props.onSaveHandler(todo);
+        await props.onSaveHandler(todo);
         setTodo("");
     }
 

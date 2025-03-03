@@ -1,0 +1,17 @@
+.captureButton {
+    background-color: var(--purple); /* Màu đỏ */
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .captureButton:active {
+    transform: scale(0.9);
+    background-color: #ff3b30;
+    border-color: white;
+  }
+  

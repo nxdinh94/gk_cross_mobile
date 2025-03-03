@@ -22,6 +22,8 @@
 	appearance: none;
 	border: none;
 	outline: none;
+	width: 100%;
+
 }
 
 .new_task_input::placeholder {
@@ -65,15 +67,19 @@
 
 	.new_task_form {
 		flex-direction: column;
+		height: fit-content;
 	}
 
 	.new_task_input {
 		flex: 1 1 100%;
 		margin-right: 0;
 		margin-bottom: 1rem;
+		font-size: 1rem;
 	}
 
 	.new_task_submit {
 		width: 100%;
+		font-size: 1rem;
+		margin: 0;
 	}
 }
