@@ -1,65 +1,74 @@
-# React Todo List 
+# Capacitor x ReactJS Project
 
-![TODO List](https://socialify.git.ci/king04aman/todo-list/image?description=1&font=Jost&forks=1&issues=1&language=1&logo=https%3A%2F%2Fimages.weserv.nl%2F%3Furl%3Dhttps%3A%2F%2Favatars.githubusercontent.com%2Fu%2F62813940%3Fv%3D4%26h%3D250%26w%3D250%26fit%3Dcover%26mask%3Dcircle%26maxage%3D7d&name=1&owner=1&pattern=Circuit%20Board&pulls&pulls=1&stargazers=1&theme=Dark)
+## Giới thiệu
+Dự án này sử dụng **ReactJS** kết hợp với **Capacitor** để phát triển ứng dụng đa nền tảng (Android, iOS, Web).
 
+## Yêu cầu hệ thống
+Trước khi chạy dự án, hãy đảm bảo bạn đã cài đặt các công cụ sau:
+- [Node.js](https://nodejs.org/) (Phiên bản LTS khuyến nghị)
+- [npm](https://www.npmjs.com/) hoặc [yarn](https://yarnpkg.com/)
+- [Capacitor CLI](https://capacitorjs.com/) (nếu chưa cài đặt, chạy lệnh `npm install -g @capacitor/cli`)
+- [Android Studio](https://developer.android.com/studio) (nếu build Android)
+- [Xcode](https://developer.apple.com/xcode/) (nếu build iOS, chỉ dành cho macOS)
 
-This is a simple Todo List application built using ReactJS that utilizes the browser's local storage to store data.
+## Cài đặt
+1. Clone repository:
+   ```sh
+   git clone <repository-url>
+   cd <project-folder>
+   ```
+2. Cài đặt dependencies:
+   ```sh
+   npm install
+   ```
+3. Cấu hình Capacitor:
+   ```sh
+   npx cap init "App Name" "com.example.app"
+   ```
+4. Thêm nền tảng mong muốn:
+   ```sh
+   npx cap add android   # Thêm Android
+   npx cap add ios       # Thêm iOS
+   ```
 
-## Features
-- Add new tasks
-- Delete tasks
-- Mark tasks as completed
-- Persist data in local storage
-- Mobile responsive design
+## Chạy dự án
+### Chạy trên trình duyệt (chế độ web)
+```sh
+npm start
+```
 
-## Installation
+### Chạy trên thiết bị/emulator
+1. Build project React:
+   ```sh
+   npm run build
+   ```
+2. Đồng bộ với Capacitor:
+   ```sh
+   npx cap sync
+   ```
+3. Mở dự án với nền tảng mong muốn:
+   ```sh
+   npx cap open android  # Mở trong Android Studio
+   npx cap open ios      # Mở trong Xcode
+   ```
+4. Chạy ứng dụng từ Android Studio hoặc Xcode.
 
-1. Clone this repository to your local machine
-    ```bash
-    git clone https://github.com/your-username/react-todo-list.git
-    ```
+## Debugging
+- Kiểm tra lỗi bằng **Chrome DevTools** với lệnh:
+  ```sh
+  npx cap serve
+  ```
+- Debug trên thiết bị thực:
+  ```sh
+  npx cap run android --device
+  ```
+  hoặc
+  ```sh
+  npx cap run ios --device
+  ```
 
-2. Navigate to the project directory
-    ```bash
-    cd react-todo-list
-    ```
+## Đóng góp
+Nếu bạn muốn đóng góp vào dự án, hãy tạo một Pull Request hoặc mở Issue mới.
 
-3. Install dependencies
-    ```bash
-    npm install
-    ```
-    or
-    ```bash
-    yarn install
-    ```
-
-## Usage
-
-4. Start the development server
-    ```bash
-    npm start
-    ```
-    or 
-    ```bash
-    yarn start
-    ```
-
-5. Open http://localhost:3000 to view it in the browser.
-6. Add a new task by typing in the input field and pressing Enter.
-7. Delete a task by clicking the X button next to it.
-8. Mark a task as completed by clicking on its checkbox.
-9. The data is automatically saved to the browser's local storage, so your tasks will persist even if you close the tab or the browser.
-
-## Technologies Used
-
-- HTML
-- CSS
-- ReactJS
-- Local Storage
-
-## Contributing
-
-If you find a bug or would like to contribute to the project, feel free to open an issue or submit a pull request.
-
-## License
-This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more information.
+## Giấy phép
+Dự án này tuân theo giấy phép MIT.

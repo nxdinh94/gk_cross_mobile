@@ -1,0 +1,105 @@
+import React, { useState } from "react";
+import { LocalNotifications } from "@capacitor/local-notifications";
+import { Share } from "@capacitor/share";
+
+const AgeCalculator = () => {
+  const [birthYear, setBirthYear] = useState("");
+  const [age, setAge] = useState(null);
+
+  const calculateAge = async () => {
+    if (!birthYear || isNaN(birthYear) || birthYear > new Date().getFullYear()) {
+      alert("Vui lòng nhập năm sinh hợp lệ!");
+      return;
+    }
+    const currentAge = new Date().getFullYear() - birthYear;
+    setAge(currentAge);
+    await showNotification(currentAge);
+  };
+
+  const showNotification = async (calculatedAge) => {
+    const permission = await LocalNotifications.requestPermissions();
+    if (permission.display !== "granted") {
+      alert("Ứng dụng chưa có quyền gửi thông báo!");
+      return;
+    }
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: "Thông báo tuổi của bạn",
+          body: `Tuổi của bạn là: ${calculatedAge}`,
+          id: Date.now(),
+          schedule: { at: new Date(Date.now() + 1000), allowWhileIdle: true }, 
+          sound: "default",
+          extra: { vibration: true },
+        },
+      ],
+    });
+  };
+
+  const testNotification = async () => {
+    const permission = await LocalNotifications.requestPermissions();
+    if (permission.display !== "granted") {
+      alert("Ứng dụng chưa có quyền gửi thông báo!");
+      return;
+    }
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: "Test Thông Báo",
+          body: "Đây là thông báo thử nghiệm!",
+          id: Date.now(),
+          schedule: { allowWhileIdle: true },
+          sound: "default",
+          extra: { vibration: true },
+        },
+      ],
+    });
+  };
+
+  const shareResult = async () => {
+    if (age === null) {
+      alert("Bạn cần tính tuổi trước khi chia sẻ!");
+      return;
+    }
+    await Share.share({
+      title: "Kết quả tính tuổi",
+      text: `Tôi đã ${age} tuổi! Bạn thử xem nào!`,
+      dialogTitle: "Chia sẻ kết quả"
+    });
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Ứng dụng tính tuổi</h1>
+      <input
+        type="number"
+        placeholder="Nhập năm sinh"
+        value={birthYear}
+        onChange={(e) => setBirthYear(e.target.value)}
+        style={{ padding: "10px", fontSize: "16px" }}
+      />
+      <br /><br />
+      <button onClick={calculateAge} style={buttonStyle}>Tính tuổi</button>
+      <br /><br />
+      {age !== null && (
+        <div>
+          <h2>Bạn đã {age} tuổi</h2>
+          <button onClick={shareResult} style={buttonStyle}>Chia sẻ kết quả</button>
+        </div>
+      )}
+      <br /><br />
+      <button onClick={testNotification} style={buttonStyle}>Test Thông Báo</button>
+    </div>
+  );
+};
+
+const buttonStyle = {
+  padding: "10px 20px",
+  fontSize: "16px",
+  backgroundColor: "#007BFF",
+  color: "white",
+  border: "none",
+  cursor: "pointer",
+};
+
+export default AgeCalculator;

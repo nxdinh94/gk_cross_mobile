@@ -1,0 +1,23 @@
+.ionTabBar {
+  display: flex;
+  justify-content: space-around; /* Cách đều các tab */
+  align-items: center;
+  height: 52px;
+  background: #fff;
+  border-top: 2px solid #ddd;
+}
+.ionTabButton {
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+}
+
+.ionTabButton a {
+  text-decoration: none !important;
+}
+.tabText {
+  text-decoration: none;
+  color: black;
+}
